@@ -99,6 +99,13 @@ onMounted(() => {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
-    padding: 16px;
+    margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
 }
 </style>

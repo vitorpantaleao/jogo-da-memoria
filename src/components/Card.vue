@@ -1,7 +1,7 @@
 <template>
     <div class="card" @click="handleVirarCarta">
         <div class="carta-virada" v-if="!carta.virada">
-            Carta Virada
+            Virar Carta
         </div>
         <div class="carta-desvirada" v-else>
             {{ carta.name }}
@@ -25,7 +25,7 @@ const handleVirarCarta = () => {
 </script>
 
 <style scoped>
-.carta-virada {
+.card>div {
     height: 200px;
     border-radius: 12px;
     text-align: center;
@@ -33,19 +33,22 @@ const handleVirarCarta = () => {
     justify-content: center;
     align-items: center;
     font-size: 18px;
+    color: black;
+}
+
+.carta-virada {
     background-color: #DDD;
-    color: white;
 }
 
 .carta-desvirada {
-    height: 200px;
-    border-radius: 12px;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
     background-color: #a7ff7454;
-    color: black;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .card>div {
+        height: 100px;
+        font-size: 16px;
+    }
 }
 </style>
