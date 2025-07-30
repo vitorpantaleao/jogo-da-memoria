@@ -16,11 +16,11 @@ const saveName = () => {
 }
 
 const getName = () => {
-    return localStorage.getItem('userName') || 'Visitante';
+    return localStorage.getItem('userName');
 }
 
 onMounted(() => {
-    name.value = getName() + '!';
+    name.value = getName();
 });
 </script>
 
