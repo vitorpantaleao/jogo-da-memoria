@@ -1,6 +1,6 @@
 <template>
-    <div class="card" @click="handleVirarCarta()">
-        <div class="carta-virada" v-if="!virarCarta">
+    <div class="card" @click="handleVirarCarta">
+        <div class="carta-virada" v-if="!carta.virada">
             Carta Virada
         </div>
         <div class="carta-desvirada" v-else>
@@ -10,10 +10,6 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-const virarCarta = ref(false);
-
 const props = defineProps({
     carta: {
         type: Object,

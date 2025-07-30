@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import Card from './Card.vue';
 import Counter from './Counter.vue';
 
@@ -35,37 +35,52 @@ const cartas = ref([
     { id: 20, name: 'Carta 10', virada: false }
 ])
 
+const sortCartas = ref([]);
 const cartasViradas = ref([])
 const cartasAcertadas = ref([])
 const acertos = ref(0);
 
-const sortCartas = computed(() => {
-    return cartas.value.sort(() => Math.random() - 0.5).map(carta => {
-        return { ...carta, virada: false }
-    })
-})
+const embaralhaCartas = () => {
+    sortCartas.value = cartas.value
+        .sort(() => Math.random() - 0.5)
+        .map(carta => ({ ...carta, virada: false }))
+}
 
 const reorderCartas = () => {
     cartas.value = cartas.value.sort(() => Math.random() - 0.5);
 }
 
-const verificaCarta = (carta) => {
+const verificaCarta = async (carta) => {
     console.log('Verificando carta:', carta);
 
+    if (cartasViradas.value.length >= 2 || carta.virada || cartasAcertadas.value.includes(carta)) return;
+
+    carta.virada = true;
     cartasViradas.value.push(carta)
 
     if (cartasViradas.value.length == 2) {
         if (cartasViradas.value[0].name === cartasViradas.value[1].name && cartasViradas.value[0].id !== cartasViradas.value[1].id) {
             acertos.value++;
             cartasAcertadas.value.push(cartasViradas.value[0], cartasViradas.value[1]);
-            cartas.value = cartas.value.filter(c => !cartasAcertadas.value.includes(c));
+            cartas.value = [];
+
             alert('Acertou!');
         } else {
-            console.log('Errou!');
+            await nextTick();
+
+            setTimeout(() => {
+                cartasViradas.value[0].virada = false;
+                cartasViradas.value[1].virada = false;
+                cartasViradas.value = [];
+                alert('Errou! Tente novamente.');
+            }, 1000);
         }
-        cartasViradas.value = []
     }
 }
+
+onMounted(() => {
+    embaralhaCartas();
+});
 
 </script>
 
