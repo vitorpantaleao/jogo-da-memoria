@@ -46,10 +46,6 @@ const embaralhaCartas = () => {
         .map(carta => ({ ...carta, virada: false }))
 }
 
-const reorderCartas = () => {
-    cartas.value = cartas.value.sort(() => Math.random() - 0.5);
-}
-
 const verificaCarta = async (carta) => {
     console.log('Verificando carta:', carta);
 
@@ -65,6 +61,13 @@ const verificaCarta = async (carta) => {
             cartasViradas.value = [];
 
             alert('Acertou!');
+
+            if (acertos.value === 10) {
+                setTimeout(() => {
+                    alert(`Parabéns! Você encontrou todos os pares!`);
+                    reiniciarJogo();
+                }, 1000);
+            }
         } else {
             await nextTick();
 
@@ -76,6 +79,13 @@ const verificaCarta = async (carta) => {
             }, 1000);
         }
     }
+}
+
+const reiniciarJogo = () => {
+    embaralhaCartas();
+    cartasViradas.value = [];
+    cartasAcertadas.value = [];
+    acertos.value = 0;
 }
 
 onMounted(() => {
