@@ -6,6 +6,7 @@ import Grid from './components/Grid.vue';
 
 <template>
   <div class="container">
+    <h1>Seja bem-vindo ao Jogo da Memória!</h1>
     <GetName />
     <Grid />
   </div>
