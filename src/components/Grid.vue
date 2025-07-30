@@ -53,7 +53,7 @@ const reorderCartas = () => {
 const verificaCarta = async (carta) => {
     console.log('Verificando carta:', carta);
 
-    if (cartasViradas.value.length >= 2 || carta.virada || cartasAcertadas.value.includes(carta)) return;
+    if (cartasViradas.value.length >= 2 || carta.virada || cartasAcertadas.value.includes(carta.id)) return;
 
     carta.virada = true;
     cartasViradas.value.push(carta)
@@ -61,8 +61,8 @@ const verificaCarta = async (carta) => {
     if (cartasViradas.value.length == 2) {
         if (cartasViradas.value[0].name === cartasViradas.value[1].name && cartasViradas.value[0].id !== cartasViradas.value[1].id) {
             acertos.value++;
-            cartasAcertadas.value.push(cartasViradas.value[0], cartasViradas.value[1]);
-            cartas.value = [];
+            cartasAcertadas.value.push(cartasViradas.value[0].id, cartasViradas.value[1].id);
+            cartasViradas.value = [];
 
             alert('Acertou!');
         } else {
