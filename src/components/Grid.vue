@@ -1,6 +1,7 @@
 <template>
     <div>
         <Counter :acertos="acertos" :rodadas="rodadas" />
+        <button @click="reiniciarJogo" class="btn-reiniciar" v-if="botaoReiniciar">Reiniciar Jogo</button>
         <div class="grid">
             <Card v-for="carta in sortCartas" :key="carta.id" :carta="carta" @carta-virada="verificaCarta(carta)" />
         </div>
@@ -40,6 +41,7 @@ const cartasViradas = ref([])
 const cartasAcertadas = ref([])
 const acertos = ref(0);
 const rodadas = ref(0);
+const botaoReiniciar = ref(false);
 
 const embaralhaCartas = () => {
     sortCartas.value = cartas.value
@@ -76,7 +78,7 @@ const verificaCarta = async (carta) => {
                     localStorage.setItem('ranking', JSON.stringify(top5));
 
                     alert(`Parabéns! Você encontrou todos os pares!`);
-                    reiniciarJogo();
+                    botaoReiniciar.value = true;
                 }, 600);
             }
         } else {
@@ -87,7 +89,7 @@ const verificaCarta = async (carta) => {
                 cartasViradas.value[1].virada = false;
                 cartasViradas.value = [];
                 alert('Errou! Tente novamente.');
-            }, 1000);
+            }, 600);
         }
     }
 }
@@ -97,6 +99,8 @@ const reiniciarJogo = () => {
     cartasViradas.value = [];
     cartasAcertadas.value = [];
     acertos.value = 0;
+    rodadas.value = 0;
+    botaoReiniciar.value = false;
 }
 
 onMounted(() => {
@@ -111,6 +115,17 @@ onMounted(() => {
     grid-template-columns: repeat(5, 1fr);
     gap: 16px;
     margin-top: 12px;
+}
+
+.btn-reiniciar {
+    display: block;
+    margin: 16px auto 0;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 @media (max-width: 768px) {
