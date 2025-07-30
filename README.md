@@ -17,3 +17,7 @@ npm install
 ```sh
 npm run dev
 ```
+
+## Link do Jogo Online
+
+[https://https://jogo-da-memoria-kohl.vercel.app/](https://https://jogo-da-memoria-kohl.vercel.app/)
