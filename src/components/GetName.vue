@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <input type="text" placeholder="Digite seu nome: " v-model="name" class="input-name" @keypress="saveName" />
+    <div class="get-name">
+        <span>Olá, </span>
+        <input type="text" placeholder="Digite seu nome aqui " v-model="name" class="input-name"
+            @keyup.enter="saveName" />
     </div>
 </template>
 
@@ -18,16 +20,23 @@ const getName = () => {
 }
 
 onMounted(() => {
-    name.value = `Olá, ${getName()}!`;
+    name.value = getName() + '!';
 });
 </script>
 
 <style scoped>
+.get-name {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
 .input-name {
-    border: 1px solid #333;
+    border: none;
     width: 100%;
-    border-radius: 8px;
-    height: 60px;
-    padding: 8px 16px;
+    box-sizing: border-box;
+    font-size: 18px;
+    padding: 8px;
 }
 </style>
