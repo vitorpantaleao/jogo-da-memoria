@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Counter :acertos="acertos" />
+        <Counter :acertos="acertos" :rodadas="rodadas" />
         <div class="grid">
             <Card v-for="carta in sortCartas" :key="carta.id" :carta="carta" @carta-virada="verificaCarta(carta)" />
         </div>
@@ -39,6 +39,7 @@ const sortCartas = ref([]);
 const cartasViradas = ref([])
 const cartasAcertadas = ref([])
 const acertos = ref(0);
+const rodadas = ref(0);
 
 const embaralhaCartas = () => {
     sortCartas.value = cartas.value
@@ -55,6 +56,8 @@ const verificaCarta = async (carta) => {
     cartasViradas.value.push(carta)
 
     if (cartasViradas.value.length == 2) {
+        rodadas.value++;
+
         if (cartasViradas.value[0].name === cartasViradas.value[1].name && cartasViradas.value[0].id !== cartasViradas.value[1].id) {
             acertos.value++;
             cartasAcertadas.value.push(cartasViradas.value[0].id, cartasViradas.value[1].id);
@@ -64,9 +67,17 @@ const verificaCarta = async (carta) => {
 
             if (acertos.value === 10) {
                 setTimeout(() => {
+                    // ranking
+                    const jogador = localStorage.getItem('userName');
+                    const ranking = JSON.parse(localStorage.getItem('ranking')) || [];
+                    ranking.push({ jogador: jogador, rodadas: rodadas.value });
+                    ranking.sort((a, b) => a.rodadas - b.rodadas);
+                    const top5 = ranking.slice(0, 5);
+                    localStorage.setItem('ranking', JSON.stringify(top5));
+
                     alert(`Parabéns! Você encontrou todos os pares!`);
                     reiniciarJogo();
-                }, 1000);
+                }, 600);
             }
         } else {
             await nextTick();

@@ -1,6 +1,7 @@
 <template>
-    <div>
-        Quantidade de acertos: {{ props.acertos }}
+    <div class="contador">
+        <span>Quantidade de acertos: {{ props.acertos }}</span>
+        <span>Quantidade de rodadas: {{ props.rodadas }}</span>
     </div>
 </template>
 
@@ -9,8 +10,19 @@ const props = defineProps({
     acertos: {
         type: Number,
         required: true
+    },
+    rodadas: {
+        type: Number,
+        required: true
     }
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.contador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+</style>
