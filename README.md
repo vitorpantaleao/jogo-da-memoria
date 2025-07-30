@@ -1,29 +1,19 @@
-# live-coding
+# Jogo da Memória
 
-This template should help get you started developing with Vue 3 in Vite.
+O propósito deste projeto é criar um jogo da memória utilizando Vue.js. O jogo permite que os usuários revelem cartas e verifiquem se as cartas reveladas são iguais.
 
-## Recommended IDE Setup
+## Tecnologias Utilizadas
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+-   Vue.js
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+### Instalação das Dependências
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Iniciar o Servidor de Desenvolvimento
 
 ```sh
 npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
 ```
